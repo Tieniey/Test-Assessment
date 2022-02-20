@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=localhost\SQLEXPRESS;Database=2C2P;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -Context "_2C2P" -f

@@ -1,0 +1,31 @@
+﻿@page "/upload"
+@inject NavigationManager NavigationManager
+
+<PageTitle>Upload Transaction</PageTitle>
+
+<div class="upload-container">
+    @*<div>
+        <span class="drop-file-icon mb-3"></span>
+        <span class="mb-3">Click the Select Files button to select a file</span>
+    </div>*@
+    <DxUpload Name="myFile" UploadUrl="@GetUploadUrl("api/Upload/UploadTransaction/")" MaxFileSize="1000000" FileUploadError="@OnUploadError">
+    </DxUpload>
+    <div class="alert alert-danger @(ErrorVisible? " visible" : " invisible")">@MyError</div>
+</div>
+
+@code {
+
+    bool ErrorVisible { get; set; } = false;
+    string MyError { get; set; }
+
+    protected string GetUploadUrl(string url) {
+        return NavigationManager.ToAbsoluteUri(url).AbsoluteUri;
+    }    
+
+    void OnUploadError(FileUploadErrorEventArgs e) {
+        MyError = e.RequestInfo.ResponseText;
+        ErrorVisible = true;
+        InvokeAsync(StateHasChanged);
+    }
+}
+
